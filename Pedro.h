@@ -1,6 +1,7 @@
 /*
  * Pedro - A simple library to control the Meccanoid G15
  * @doc http://cdn.meccano.com/open-source/Meccano_SmartModuleProtocols_2015.pdf
+ *      I used a L293D to control the wheels
 */
 
 #ifndef PEDRO_H_
@@ -30,7 +31,19 @@ class Pedro {
          * @param pinLeftShoulder pin left shoulder
          * @param pinLeftHand pin left hand
          */
-        Pedro(int pinHead, int pinRightShoulder, int pinRightHand, int pinLeftShoulder, int pinLeftHand);
+        Pedro(
+            int pinHead,
+            int pinRightShoulder,
+            int pinRightHand,
+            int pinLeftShoulder,
+            int pinLeftHand,
+            int pinLeftWheel1,
+            int pinLeftWheel2,
+            int pinLeftWheelEnable,
+            int pinRightWheel1,
+            int pinRightWheel2,
+            int pinRightWheelEnable
+        );
 
         ~Pedro();
 
@@ -75,9 +88,15 @@ class Pedro {
          *
          */
         void communicate(byte selector);
+
+        /**
+         * @brief Move the robot
+         *
+         */
+        void move(byte selector, int speed);
     private:
-        unsigned char _pins[6];
-        MeccaBrain *_controllers[6];
+        unsigned char _pins[11];
+        MeccaBrain *_controllers[5];
 };
 
 #endif /* !PEDRO_H_ */
